@@ -1,0 +1,37 @@
+graph TD
+    A[Erreurs Git courantes] --> B[Modification accidentelle de la branche principale]
+    A --> C[Commit sur la mauvaise branche]
+    A --> D[Suppression accidentelle de fichiers]
+    A --> E[Push forcé écrasant les modifications distantes]
+    A --> F[Commit avec un mauvais message]
+    A --> G[Ajout de fichiers sensibles au dépôt]
+    A --> H[Perte d'un commit non poussé]
+    A --> I[Fusion accidentelle de branches]
+    A --> J[Oubli d'ajouter des fichiers au commit]
+    A --> K[Rebase interactif incorrect]
+    A --> L[Conflit de fusion non résolu]
+    A --> M[Perte de modifications non committées]
+
+    B --> B1[Solution:<br/>1. git stash<br/>2. git branch nouvelle-branche<br/>3. git checkout nouvelle-branche<br/>4. git stash apply]
+    
+    C --> C1[Solution:<br/>1. git log pour trouver l'ID du commit<br/>2. git checkout -b nouvelle-branche<br/>3. git cherry-pick ID-du-commit<br/>4. git checkout branche-originale<br/>5. git reset --hard HEAD~1]
+    
+    D --> D1[Solution:<br/>1. git fsck --full<br/>2. git show ID-du-fichier > nom-du-fichier<br/>3. git add nom-du-fichier<br/>4. git commit -m 'Récupération du fichier supprimé']
+    
+    E --> E1[Solution:<br/>1. git reflog pour trouver l'ancien HEAD<br/>2. git reset --hard ID-du-commit<br/>3. git push --force-with-lease]
+
+    F --> F1[Solution:<br/>1. git commit --amend<br/>2. Modifier le message<br/>3. Sauvegarder et fermer l'éditeur]
+
+    G --> G1[Solution:<br/>1. git rm --cached fichier-sensible<br/>2. Ajouter fichier-sensible à .gitignore<br/>3. git commit -m 'Retrait du fichier sensible']
+
+    H --> H1[Solution:<br/>1. git reflog<br/>2. git cherry-pick ID-du-commit-perdu]
+
+    I --> I1[Solution:<br/>1. git reflog pour trouver l'état avant la fusion<br/>2. git reset --hard ID-du-commit-avant-fusion]
+
+    J --> J1[Solution:<br/>1. git add fichiers-oubliés<br/>2. git commit --amend --no-edit]
+
+    K --> K1[Solution:<br/>1. git reflog pour trouver l'état avant le rebase<br/>2. git reset --hard ID-du-commit-avant-rebase]
+
+    L --> L1[Solution:<br/>1. git merge --abort<br/>2. Résoudre les conflits manuellement<br/>3. git add fichiers-résolus<br/>4. git merge --continue]
+
+    M --> M1[Solution:<br/>1. git fsck --lost-found<br/>2. Chercher dans .git/lost-found/other<br/>3. Récupérer les fichiers pertinents]
